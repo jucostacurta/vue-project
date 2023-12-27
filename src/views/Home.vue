@@ -9,7 +9,7 @@ const fetchedInitialData = ref([]);
 const term = ref("");
 const isLoading = ref(false);
 const dialog = ref(false);
-const continents = ref([]);
+const continents = ref("All");
 
 const sortBy = (data) =>
   data.sort((a, b) =>
@@ -87,7 +87,9 @@ onMounted(async () => {
     <v-row align="center" justify="center">
       <v-col cols="10" class="mt-2">
         <v-text-field
-          :append-icon="term || continents ? 'mdi-filter-check' : 'mdi-filter'"
+          :append-icon="
+            term || continents !== 'All' ? 'mdi-filter-check' : 'mdi-filter'
+          "
           :append-inner-icon="'mdi-magnify'"
           v-model="term"
           variant="outlined"
@@ -105,10 +107,8 @@ onMounted(async () => {
     <v-row justify="center">
       <v-dialog
         v-model="dialog"
-        fullscreen
-        :scrim="false"
         transition="dialog-bottom-transition"
-        v-modal="dialog"
+        width="500"
       >
         <v-card>
           <v-toolbar dark color="primary">
@@ -129,58 +129,52 @@ onMounted(async () => {
               </v-btn>
             </v-toolbar-items>
           </v-toolbar>
-          <v-list lines="two" subheader>
-            <v-list-item
-              title="Content filtering"
-              subtitle="Set the content filtering level to restrict apps that can be downloaded"
-            >
-              <v-radio-group v-model="continents">
-                <v-radio color="primary" label="All" value="All" hide-details />
-                <v-radio
-                  color="primary"
-                  label="Asia"
-                  value="Asia"
-                  hide-details
-                />
-                <v-radio
-                  color="primary"
-                  label="Africa"
-                  value="Africa"
-                  hide-details
-                />
-                <v-radio
-                  color="primary"
-                  label="North America"
-                  value="North America"
-                  hide-details
-                />
-                <v-radio
-                  color="primary"
-                  label="South America"
-                  value="South America"
-                  hide-details
-                />
-                <v-radio
-                  color="primary"
-                  label="Antarctica"
-                  value="Antarctica"
-                  hide-details
-                />
-                <v-radio
-                  color="primary"
-                  label="Europe"
-                  value="Europe"
-                  hide-details
-                />
-                <v-radio
-                  color="primary"
-                  label="Australia"
-                  value="Australia"
-                  hide-details
-                />
-              </v-radio-group>
-            </v-list-item>
-          </v-list>
+          <v-radio-group v-model="continents">
+            <v-container>
+              <v-row>
+                <v-col cols="6">
+                  <v-radio color="primary" label="All" value="All" />
+                </v-col>
+                <v-col cols="6">
+                  <v-radio color="primary" label="Asia" value="Asia" />
+                </v-col>
+                <v-col cols="6">
+                  <v-radio color="primary" label="Africa" value="Africa" />
+                </v-col>
+                <v-col cols="6">
+                  <v-radio
+                    color="primary"
+                    label="North America"
+                    value="North America"
+                  />
+                </v-col>
+                <v-col cols="6">
+                  <v-radio
+                    color="primary"
+                    label="South America"
+                    value="South America"
+                  />
+                </v-col>
+                <v-col cols="6">
+                  <v-radio
+                    color="primary"
+                    label="Antarctica"
+                    value="Antarctica"
+                  />
+                </v-col>
+                <v-col cols="6">
+                  <v-radio color="primary" label="Europe" value="Europe" />
+                </v-col>
+                <v-col cols="6">
+                  <v-radio
+                    color="primary"
+                    label="Australia"
+                    value="Australia"
+                  />
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-radio-group>
         </v-card>
       </v-dialog>
     </v-row>
